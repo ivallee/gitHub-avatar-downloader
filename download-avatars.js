@@ -35,7 +35,7 @@ function downloadImageByURL(url, filePath) {
       throw err;
     })
     .on('response', (response) => {
-      console.log('Downloaded image to: ' + filePath);
+      console.log(`Downloaded image to: ${filePath}`);
     })
     .pipe(fs.createWriteStream(filePath));
 }
@@ -49,7 +49,7 @@ getRepoContributors(owner, repo, (err, result) => {
     for (var i = 0; i < result.length; i++) {
       const url = result[i].avatar_url;
       const name = result[i].login;
-      downloadImageByURL(url, './avatars/' + name + '.jpg');
+      downloadImageByURL(url, `./avatars/${name}.jpg`);
     }
   }
 });
