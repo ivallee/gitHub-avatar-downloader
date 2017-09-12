@@ -1,11 +1,12 @@
+require('dotenv').config()
+const GITHUB_USER = process.env.GITHUB_USER
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+
+
 const request = require('request');
 const fs = require('fs');
-const arg1 = process.argv[2];
-const arg2 = process.argv[3];
-
-// Github info
-const GITHUB_USER = "ivallee";
-const GITHUB_TOKEN = "1dd1219e875ed6dd517c857ebd87bbc26eb169f8";
+const owner = process.argv[2];
+const repo = process.argv[3];
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 
@@ -37,12 +38,11 @@ function downloadImageByURL(url, filePath) {
     .pipe(fs.createWriteStream(filePath));
 }
 
-
-getRepoContributors(arg1, arg2, function(err, result) {
+getRepoContributors(owner, repo, function(err, result) {
   console.log("Errors:", err);
   // Checks for arguments from command line
-  if (!arg1 || !arg2) {
-    console.log("Please enter a valid repo owner and rep name");
+  if (!owner || !repo) {
+    console.log("Please enter a valid repo owner and repo name");
   } else {
     for (var i = 0; i < result.length; i++) {
       const url = result[i].avatar_url;
