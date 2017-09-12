@@ -22,7 +22,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
     }
   };
 
-  request(options, function (err, response, body){
+  request(options, (err, response, body) => {
     const content = JSON.parse(body);
     cb(err, content);
   });
@@ -31,16 +31,16 @@ function getRepoContributors(repoOwner, repoName, cb) {
 // Downloads URL and writes to specified path
 function downloadImageByURL(url, filePath) {
   request.get(url)
-    .on('error', function (err) {
+    .on('error', (err) => {
       throw err;
     })
-    .on('response', function (response) {
+    .on('response', (response) => {
       console.log('Downloaded image to: ' + filePath);
     })
     .pipe(fs.createWriteStream(filePath));
 }
 
-getRepoContributors(owner, repo, function(err, result) {
+getRepoContributors(owner, repo, (err, result) => {
   console.log("Errors:", err);
   // Checks for arguments from command line
   if (!owner || !repo) {
