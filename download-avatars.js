@@ -1,7 +1,7 @@
 // .env config
-require('dotenv').config()
-const GITHUB_USER = process.env.GITHUB_USER
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+require('dotenv').config();
+const GITHUB_USER = process.env.GITHUB_USER;
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 const request = require('request');
 const fs = require('fs');
