@@ -1,4 +1,5 @@
 const request = require('request');
+const fs = require('fs');
 
 const GITHUB_USER = "ivallee";
 const GITHUB_TOKEN = "1dd1219e875ed6dd517c857ebd87bbc26eb169f8";
@@ -16,6 +17,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
 
   request(options, function (err, response, body){
     const content = JSON.parse(body);
+    // Prints avatar URLS
     for (var i = 0; i < content.length; i++) {
       console.log(content[i].avatar_url);
     }
@@ -24,7 +26,22 @@ function getRepoContributors(repoOwner, repoName, cb) {
 
 }
 
-getRepoContributors("jquery", "jquery", function(err, result) {
-  console.log("Errors:", err);
-  console.log("Result:", result);
-});
+// getRepoContributors("jquery", "jquery", function(err, result) {
+//   console.log("Errors:", err);
+//   console.log("Result:", result);
+// });
+
+function downloadImageByURL(url, filePath) {
+  request.get(url)
+  .on('error', function (err) {
+    throw err;
+  })
+  .on('response', function (response) {
+    console.log('Response Message: ', response.statusMessage + "\n", response.headers["content-type"]);
+    console.log('Download Complete');
+  })
+  .pipe(fs.createWriteStream(filePath));
+}
+
+
+downloadImageByURL('https://avatars0.githubusercontent.com/u/1615?v=4', './avatars/image.jpg');
